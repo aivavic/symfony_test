@@ -1,0 +1,47 @@
+BlogBundle\Entity\Post:
+    type: entity
+    table: null
+    repositoryClass: BlogBundle\Repository\PostRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+
+    manyToOne:
+        category:
+              targetEntity: Category
+              inversedBy: posts
+              joinColumn:
+                  name: category_id
+                  referencedColumnName: id
+    fields:
+        title:
+            type: string
+            length: '255'
+        slug:
+            type: string
+            length: '255'
+            unique: true
+        description:
+            type: text
+        content:
+            type: text
+        createAt:
+            type: datetime
+            column: create_at
+        updateAt:
+            type: datetime
+            column: update_at
+        publicAt:
+            type: datetime
+            column: public_at
+
+        authorId:
+            type: integer
+            column: author_id
+        status:
+            type: integer
+            length: '1'
+    lifecycleCallbacks: {  }

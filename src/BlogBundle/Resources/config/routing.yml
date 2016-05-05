@@ -1,0 +1,8 @@
+blog_homepage:
+    path:     /{_locale}
+    defaults: { _controller: BlogBundle:Default:index, _locale:ru }
+    requirements:
+            _locale: en|ru
+blog_show:
+    resource: "@BlogBundle/Resources/config/routing/post.yml"
+    prefix:   /post

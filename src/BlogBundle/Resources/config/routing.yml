@@ -6,3 +6,6 @@ blog_homepage:
 blog_show:
     resource: "@BlogBundle/Resources/config/routing/post.yml"
     prefix:   /post
+category:
+    resource: "@BlogBundle/Resources/config/routing/category.yml"
+    prefix: /category

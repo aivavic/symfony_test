@@ -7,23 +7,41 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use BlogBundle\Entity\Category;
 use BlogBundle\Entity\Post;
 
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class DefaultController extends Controller
 {
+    private $router;
 
     public function indexAction(Request $request)
     {
-//        $request->setLocale('ru');
-//        dump($locale = $request->getLocale());
-////        die();
-//
-//        $translated = $this->get('translator')->trans('test');
-//
 
-//        dump($test); die();
-        return $this->render('BlogBundle:Default:index.html.twig');
+        $task = new Category();
+        $task->setName('testCategory');
+        $task->setDescription('testDescription');
+        
+
+        $form = $this->createFormBuilder($task)
+            ->add('Name', TextType::class)
+            ->add('Description', TextareaType::class)
+            ->add('save', SubmitType::class, array('label' => 'Create Category'))
+            ->getForm();
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($task);
+            $em->flush();
+
+            return $this->redirectToRoute('category_success');
+        }
+        return $this->render('BlogBundle:Default:new.html.twig', array(
+            'form' => $form->createView(),
+        ));
     }
 
     /**

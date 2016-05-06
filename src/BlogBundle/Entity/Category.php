@@ -127,4 +127,3 @@ class Category
         return $this->posts;
     }
 }
-

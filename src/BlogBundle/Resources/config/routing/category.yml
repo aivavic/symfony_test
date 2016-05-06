@@ -1,0 +1,8 @@
+category_success:
+    path:     /success
+    defaults: { _controller: "BlogBundle:Category:success" }
+    methods:  GET
+category_new:
+    path:     /new
+    defaults: { _controller: "BlogBundle:Category:new" }
+    methods: [GET, POST]

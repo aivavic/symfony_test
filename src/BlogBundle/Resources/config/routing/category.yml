@@ -1,3 +1,7 @@
+category_index:
+    path:     /
+    defaults: { _controller: "BlogBundle:Category:index" }
+    methods: [GET, POST]
 category_success:
     path:     /success
     defaults: { _controller: "BlogBundle:Category:success" }

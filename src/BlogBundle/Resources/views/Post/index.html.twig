@@ -1,0 +1,24 @@
+{% extends 'BlogBundle:Layouts:main.html.twig'  %}
+
+{% block title %}{{ title }}{% endblock %}
+{% block stylesheets %}
+    <style>
+        .small{
+            font-size: 10px;
+        }
+    </style>
+{% endblock %}
+{% block body %}
+    {% for key,value in posts %}
+
+
+        <b>{{ value.title }}</b><br>
+        <span class="small"><b>Category :</b> <a href="{{ path("post_filter", {'_filter':value.category.id}) }}">{{value.category.name}}</a></span><br>
+        {{ value.content }}<br>
+
+
+
+
+        --------------------- <br>
+    {% endfor %}
+{% endblock %}

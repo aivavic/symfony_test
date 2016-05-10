@@ -1,0 +1,10 @@
+{% extends 'BlogBundle:Layouts:main.html.twig'  %}
+{% block title %}Category List{% endblock %}
+{% block body %}
+    {% for key,value in category %}
+        <b>Id:</b> {{ key }} <br>
+        <b>Category :</b> {{ value.name }}<br>
+        <b>Description :</b> {{ value.description }}<br>
+        --------------------- <br>
+    {% endfor %}
+{% endblock %}

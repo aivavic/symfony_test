@@ -1,24 +1,28 @@
 post_index:
     path:     /
-    defaults: { _controller: "BlogBundle:Defaultы:index" }
+    defaults: { _controller: "BlogBundle:Post:index" }
     methods:  GET
 
 post_show:
     path:     /{id}/show
-    defaults: { _controller: "BlogBundle:Default:show" }
+    defaults: { _controller: "BlogBundle:Post:show" }
     methods:  GET
 
 post_new:
     path:     /new
-    defaults: { _controller: "BlogBundle:Default:create" }
+    defaults: { _controller: "BlogBundle:Post:create" }
     methods:  [GET, POST]
 
 post_edit:
     path:     /{id}/edit
-    defaults: { _controller: "BlogBundle:Default:edit" }
+    defaults: { _controller: "BlogBundle:Post:edit" }
     methods:  [GET, POST]
 
 post_delete:
     path:     /{id}/delete
-    defaults: { _controller: "BlogBundle:Default:delete" }
+    defaults: { _controller: "BlogBundle:Post:delete" }
     methods:  DELETE
+post_filter:
+    path:     /{_filter}/filter
+    defaults: { _controller: "BlogBundle:Post:filter, _filter:filter" }
+    methods:  [GET, POST]

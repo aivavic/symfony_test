@@ -3,7 +3,7 @@
 namespace BlogBundle\Controller;
 
 use BlogBundle\BlogBundle;
-use BlogBundle\Form\CategoryType;
+use BlogBundle\Form\PostType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use BlogBundle\Entity\Category;
 use BlogBundle\Entity\Post;
@@ -15,42 +15,46 @@ use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class CategoryController extends Controller
+class PostController extends Controller
 {
 
 
     public function indexAction()
     {
-        $repository = $this->getDoctrine()
-            ->getRepository('BlogBundle:Category');
-        $category = $repository->findAll();
-        return $this->render('BlogBundle:Category:index.html.twig',[
-            'category'  =>  $category,
-        ]);
+        $repository = $this->getDoctrine()->getRepository('BlogBundle:Post');
+        $posts = $repository->findAll();
+        $title = 'Posts';
+        return $this->render('BlogBundle:Post:index.html.twig', array(
+            'posts' => $posts,
+            'title' => $title
+        ));
     }
 
-
+    public function filterAction($filter)
+    {
+        dump($filter); die();
+    }
     public function newAction(Request $request)
     {
 
-        $category = new Category();
-        $category->setName('testCategory');
-        $category->setDescription('testDescription');
+        $post = new Category();
+//        $post->setName('testCategory');
+//        $post->setDescription('testDescription');
         
-        $form = $this->createForm(CategoryType::class, $category);
+        $form = $this->createForm(PostType::class, $post);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
             $em = $this->getDoctrine()->getManager();
-            $em->persist($category);
+            $em->persist($post);
             $em->flush();
 
-            return $this->redirectToRoute('category_success');
+            return $this->redirectToRoute('post_success');
         }
         
-        return $this->render('BlogBundle:Category:new.html.twig', array(
+        return $this->render('BlogBundle:Post:new.html.twig', array(
             'form' => $form->createView(),
         ));
     }
